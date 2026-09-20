@@ -10,6 +10,7 @@ This repository contains Cisco Packet Tracer labs for two Dynamic Routing Protoc
 The labs demonstrate routing configuration, route learning, neighbor relationships, metrics, and routing table verification.
 
 ---
+![Network Topology](topology.png)
 
 ## 🧪 RIP Lab
 
