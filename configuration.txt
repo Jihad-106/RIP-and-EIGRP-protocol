@@ -1,0 +1,155 @@
+==================================================
+RIP DYNAMIC ROUTING LAB
+=======================
+
+RIP Version: RIPv2
+Administrative Distance: 120
+Metric: Hop Count
+
+---
+
+## R1 CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.10.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 10.10.10.0
+network 192.168.1.0
+
+---
+
+  ## R2 CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.10.2 255.255.255.0
+no shutdown
+interface GigabitEthernet0/2
+ip address 10.10.0.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 10.10.10.0
+network 192.168.2.0
+ network 10.10.0.0
+
+
+---
+  ## R3 CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.10.2 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 10.10.0.0
+network 192.168.3.0
+
+
+## VERIFICATION
+
+show ip interface brief
+show ip protocols
+show ip route
+
+END
+===
+==================================================
+EIGRP DYNAMIC ROUTING LAB
+=========================
+
+EIGRP AS: 100
+Internal Administrative Distance: 90
+External Administrative Distance: 170
+Metric: Bandwidth + Delay
+
+---
+  ## R4 INTERFACE CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.10.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+
+## EIGRP CONFIGURATION
+
+router eigrp 100
+network 10.10.10.0 0.0.0.255
+network 192.168.1.0 0.0.0.255
+
+
+## R5 INTERFACE CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.10.2 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/2
+ip address 10.10.0.1 255.255.255.0
+no shutdown
+
+---
+
+## EIGRP CONFIGURATION
+
+router eigrp 100
+network 10.10.10.0 0.0.0.255
+network 10.10.0.0 0.0.0.255
+network 192.168.2.0 0.0.0.255
+
+---
+  ## R6 INTERFACE CONFIGURATION
+
+interface GigabitEthernet0/0
+ip address 10.10.0.2 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/1
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+
+## EIGRP CONFIGURATION
+
+router eigrp 100
+network 10.10.10.0 0.0.0.255
+network 192.168.3.0 0.0.0.255
+
+## VERIFICATION
+
+show ip interface brief
+show ip eigrp neighbors
+show ip eigrp topology
+show ip route
+show ip protocols
+
+
+
+==================================================
+END
+===
